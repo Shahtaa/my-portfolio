@@ -1,17 +1,17 @@
+// src/components/About.tsx
 import React from 'react';
-import { Typography, Container } from '@mui/material';
-import '../styles/About.css';
+import { Box, Typography } from '@mui/material';
 
 const About: React.FC = () => {
   return (
-    <Container>
+    <Box>
       <Typography variant="h4" gutterBottom>
         About Me
       </Typography>
       <Typography variant="body1">
-        I'm a passionate developer dedicated to crafting efficient web applications.
+        This is the About page content. Describe yourself or your work here.
       </Typography>
-    </Container>
+    </Box>
   );
 };
 

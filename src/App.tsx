@@ -1,25 +1,26 @@
+// src/App.tsx
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import { Container } from '@mui/material';
+import { Route, Routes } from 'react-router-dom';
+import { Container, Box, Typography } from '@mui/material';
 import Header from './components/Header';
 import About from './components/About';
 import Projects from './components/Projects';
 import Contact from './components/Contact';
-import './index.css'; // Global styles
 
 const App: React.FC = () => {
   return (
-    <Router basename="/my-portfolio"> {/* Add basename here */}
-      <Container>
-        <Header />
+    <Container maxWidth="lg"> {/* Set a maxWidth for the container */}
+      <Header />
+      <Box mt={4}>
         <Routes>
+          <Route path="/" element={<About />} />  {/* Home route */}
           <Route path="/about" element={<About />} />
           <Route path="/projects" element={<Projects />} />
           <Route path="/contact" element={<Contact />} />
-          <Route path="/" element={<About />} /> {/* Default route */}
+          <Route path="*" element={<Typography variant="h5" align="center">404 Not Found</Typography>} />
         </Routes>
-      </Container>
-    </Router>
+      </Box>
+    </Container>
   );
 };
 
