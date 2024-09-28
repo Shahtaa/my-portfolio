@@ -1,12 +1,15 @@
-// src/index.tsx
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './App'; // Use default import
-import './index.css'; // Make sure to import your CSS for global styles
+import { BrowserRouter } from 'react-router-dom';
+import App from './App';
+import './reset.css'; // Import the reset CSS
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
+
 root.render(
   <React.StrictMode>
-    <App />
+    <BrowserRouter basename="/my-portfolio">
+      <App />
+    </BrowserRouter>
   </React.StrictMode>
 );
