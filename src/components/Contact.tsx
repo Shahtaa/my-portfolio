@@ -8,29 +8,56 @@ import {
   Grid,
   Snackbar,
   Alert,
+  MenuItem,
+  Select,
+  InputLabel,
+  FormControl,
+  SelectChangeEvent,
 } from '@mui/material';
 
 const Contact: React.FC = () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
+    phone: '',
+    subject: '',
     message: '',
   });
 
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState('');
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleTextChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const handleSelectChange = (event: SelectChangeEvent<string>) => {
+    const { name, value } = event.target; // This will work because SelectChangeEvent has the correct target type
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    // Simple validation before submission
+    if (!formData.name || !formData.email || !formData.message) {
+      setSnackbarMessage('Please fill in all required fields.');
+      setOpenSnackbar(true);
+      return;
+    }
+
+    // Here you would typically send the form data to your server
     console.log(formData);
     setSnackbarMessage('Message sent successfully!');
     setOpenSnackbar(true);
-    setFormData({ name: '', email: '', message: '' }); // Clear the form after submission
+    setFormData({ name: '', email: '', phone: '', subject: '', message: '' }); // Clear the form after submission
   };
 
   return (
@@ -44,39 +71,78 @@ const Contact: React.FC = () => {
             <TextField
               fullWidth
               label="Name"
-              name="name" // Name attribute for autofill
-              id="contact-name" // Unique ID for accessibility
+              name="name"
+              id="contact-name"
               value={formData.name}
-              onChange={handleChange}
+              onChange={handleTextChange}
               required
-              autoComplete="name" // Autofill suggestion
+              autoComplete="name"
+              variant="outlined"
             />
           </Grid>
           <Grid item xs={12}>
             <TextField
               fullWidth
               label="Email"
-              name="email" // Name attribute for autofill
-              id="contact-email" // Unique ID for accessibility
+              name="email"
+              id="contact-email"
               value={formData.email}
-              onChange={handleChange}
+              onChange={handleTextChange}
               required
               type="email"
-              autoComplete="email" // Autofill suggestion
+              autoComplete="email"
+              variant="outlined"
             />
           </Grid>
           <Grid item xs={12}>
             <TextField
               fullWidth
+              label="Phone"
+              name="phone"
+              id="contact-phone"
+              value={formData.phone}
+              onChange={handleTextChange}
+              type="tel"
+              autoComplete="tel"
+              variant="outlined"
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <FormControl fullWidth variant="outlined">
+              <InputLabel id="contact-subject-label">Subject</InputLabel>
+              <Select
+                labelId="contact-subject-label"
+                id="contact-subject"
+                name="subject" // Use name here to manage the form state
+                value={formData.subject}
+                onChange={handleSelectChange} // This function should now work correctly
+                label="Subject"
+                required
+              >
+                <MenuItem value="Collaboration Opportunities">Collaboration Opportunities</MenuItem>
+                <MenuItem value="Project Feedback">Project Feedback</MenuItem>
+                <MenuItem value="General Inquiry">General Inquiry</MenuItem>
+                <MenuItem value="Technical Support">Technical Support</MenuItem>
+                <MenuItem value="Service Request">Service Request</MenuItem>
+                <MenuItem value="Press Inquiries">Press Inquiries</MenuItem>
+                <MenuItem value="Job Opportunities">Job Opportunities</MenuItem>
+                <MenuItem value="Other">Other</MenuItem>
+              </Select>
+            </FormControl>
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              fullWidth
               label="Message"
-              name="message" // Name attribute for autofill
-              id="contact-message" // Unique ID for accessibility
+              name="message"
+              id="contact-message"
               value={formData.message}
-              onChange={handleChange}
+              onChange={handleTextChange}
               required
               multiline
               rows={4}
-              autoComplete="off" // Optionally disable autofill for this field
+              autoComplete="off"
+              variant="outlined"
             />
           </Grid>
           <Grid item xs={12}>
