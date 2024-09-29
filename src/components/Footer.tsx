@@ -28,7 +28,7 @@ const Footer: React.FC = () => {
       <Box display="flex" justifyContent="center" gap={1}>
         {/* GitHub Icon Link */}
         <IconButton
-          href="https://github.com/your-profile"
+          href="https://github.com/"
           color="default"
           target="_blank"
           rel="noopener"
@@ -41,7 +41,7 @@ const Footer: React.FC = () => {
 
         {/* LinkedIn Icon Link */}
         <IconButton
-          href="https://linkedin.com/in/your-profile"
+          href="https://linkedin.com/"
           color="default"
           target="_blank"
           rel="noopener"
@@ -54,7 +54,7 @@ const Footer: React.FC = () => {
 
         {/* Telegram Icon Link */}
         <IconButton
-          href="https://t.me/your-profile"
+          href="https://t.me/"
           color="default"
           target="_blank"
           rel="noopener"

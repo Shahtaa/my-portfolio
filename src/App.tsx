@@ -7,12 +7,27 @@ import About from './components/About';
 import Projects from './components/Projects';
 import Contact from './components/Contact';
 import NotFound from './components/NotFound'; // Import the NotFound component
+import Footer from './components/Footer'; // Import Footer component
 
 const App: React.FC = () => {
   return (
-    <Container maxWidth="lg">
+    <Box
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        minHeight: '100vh', // Ensures the container takes the full height
+        width: '100vw', // Ensures the container takes the full width
+      }}
+    >
       <Header />
-      <Box mt={4}>
+      <Container
+        maxWidth="lg"
+        sx={{
+          flexGrow: 1, // Allows the Container to grow and push the footer down
+          mt: 4,
+          mb: 4,
+        }}
+      >
         <Routes>
           <Route path="/" element={<About />} />  {/* Home route */}
           <Route path="/about" element={<About />} />
@@ -20,8 +35,9 @@ const App: React.FC = () => {
           <Route path="/contact" element={<Contact />} />
           <Route path="*" element={<NotFound />} /> {/* Use NotFound component */}
         </Routes>
-      </Box>
-    </Container>
+      </Container>
+      <Footer /> {/* Include Footer component at the bottom */}
+    </Box>
   );
 };
 

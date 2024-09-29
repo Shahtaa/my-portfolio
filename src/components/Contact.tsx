@@ -36,7 +36,7 @@ const Contact: React.FC = () => {
   };
 
   const handleSelectChange = (event: SelectChangeEvent<string>) => {
-    const { name, value } = event.target; // This will work because SelectChangeEvent has the correct target type
+    const { name, value } = event.target;
     setFormData((prevData) => ({
       ...prevData,
       [name]: value,
@@ -71,40 +71,40 @@ const Contact: React.FC = () => {
             <TextField
               fullWidth
               label="Name"
-              name="name"
-              id="contact-name"
+              name="name" // Name attribute for autofill
+              id="contact-name" // Unique ID for accessibility
               value={formData.name}
               onChange={handleTextChange}
               required
-              autoComplete="name"
-              variant="outlined"
+              autoComplete="name" // Autofill suggestion
+              variant="outlined" // Outline variant for Material-UI
             />
           </Grid>
           <Grid item xs={12}>
             <TextField
               fullWidth
               label="Email"
-              name="email"
-              id="contact-email"
+              name="email" // Name attribute for autofill
+              id="contact-email" // Unique ID for accessibility
               value={formData.email}
               onChange={handleTextChange}
               required
               type="email"
-              autoComplete="email"
-              variant="outlined"
+              autoComplete="email" // Autofill suggestion
+              variant="outlined" // Outline variant for Material-UI
             />
           </Grid>
           <Grid item xs={12}>
             <TextField
               fullWidth
               label="Phone"
-              name="phone"
-              id="contact-phone"
+              name="phone" // Name attribute for autofill
+              id="contact-phone" // Unique ID for accessibility
               value={formData.phone}
               onChange={handleTextChange}
-              type="tel"
-              autoComplete="tel"
-              variant="outlined"
+              type="tel" // Set input type to telephone
+              autoComplete="tel" // Autofill suggestion
+              variant="outlined" // Outline variant for Material-UI
             />
           </Grid>
           <Grid item xs={12}>
@@ -113,9 +113,9 @@ const Contact: React.FC = () => {
               <Select
                 labelId="contact-subject-label"
                 id="contact-subject"
-                name="subject" // Use name here to manage the form state
+                name="subject" // Name attribute for autofill
                 value={formData.subject}
-                onChange={handleSelectChange} // This function should now work correctly
+                onChange={handleSelectChange}
                 label="Subject"
                 required
               >
@@ -134,15 +134,15 @@ const Contact: React.FC = () => {
             <TextField
               fullWidth
               label="Message"
-              name="message"
-              id="contact-message"
+              name="message" // Name attribute for autofill
+              id="contact-message" // Unique ID for accessibility
               value={formData.message}
               onChange={handleTextChange}
               required
               multiline
               rows={4}
-              autoComplete="off"
-              variant="outlined"
+              autoComplete="off" // Optionally disable autofill for this field
+              variant="outlined" // Outline variant for Material-UI
             />
           </Grid>
           <Grid item xs={12}>
