@@ -1,4 +1,3 @@
-// src/components/Contact.tsx
 import React, { useState } from 'react';
 import {
   TextField,
@@ -26,6 +25,8 @@ const Contact: React.FC = () => {
 
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState('');
+  const [snackbarSeverity, setSnackbarSeverity] = useState<'success' | 'error'>('success');
+  const [loading, setLoading] = useState(false);
 
   const handleTextChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -43,21 +44,50 @@ const Contact: React.FC = () => {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     // Simple validation before submission
-    if (!formData.name || !formData.email || !formData.message) {
+    const { name, email, message } = formData;
+    if (!name || !email || !message) {
       setSnackbarMessage('Please fill in all required fields.');
+      setSnackbarSeverity('error');
       setOpenSnackbar(true);
       return;
     }
 
-    // Here you would typically send the form data to your server
-    console.log(formData);
-    setSnackbarMessage('Message sent successfully!');
-    setOpenSnackbar(true);
-    setFormData({ name: '', email: '', phone: '', subject: '', message: '' }); // Clear the form after submission
+    setLoading(true);
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          subject: formData.subject,
+          message: formData.message,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to send message.');
+      }
+
+      setSnackbarMessage('Message sent successfully!');
+      setSnackbarSeverity('success');
+    } catch (error) {
+      console.error('Error:', error);
+      setSnackbarMessage('An error occurred while sending the message.');
+      setSnackbarSeverity('error');
+    } finally {
+      setOpenSnackbar(true);
+      setLoading(false);
+      setFormData({ name: '', email: '', phone: '', subject: '', message: '' }); // Clear the form after submission
+    }
   };
 
   return (
@@ -68,44 +98,47 @@ const Contact: React.FC = () => {
       <form onSubmit={handleSubmit}>
         <Grid container spacing={2}>
           <Grid item xs={12}>
-            <TextField
-              fullWidth
-              label="Name"
-              name="name" // Name attribute for autofill
-              id="contact-name" // Unique ID for accessibility
-              value={formData.name}
-              onChange={handleTextChange}
-              required
-              autoComplete="name" // Autofill suggestion
-              variant="outlined" // Outline variant for Material-UI
-            />
+            <FormControl fullWidth variant="outlined">
+              <InputLabel htmlFor="contact-name">Name</InputLabel>
+              <TextField
+                id="contact-name" // Unique ID for accessibility
+                name="name" // Name attribute for autofill
+                value={formData.name}
+                onChange={handleTextChange}
+                required
+                autoComplete="name" // Autofill suggestion
+                variant="outlined" // Outline variant for Material-UI
+              />
+            </FormControl>
           </Grid>
           <Grid item xs={12}>
-            <TextField
-              fullWidth
-              label="Email"
-              name="email" // Name attribute for autofill
-              id="contact-email" // Unique ID for accessibility
-              value={formData.email}
-              onChange={handleTextChange}
-              required
-              type="email"
-              autoComplete="email" // Autofill suggestion
-              variant="outlined" // Outline variant for Material-UI
-            />
+            <FormControl fullWidth variant="outlined">
+              <InputLabel htmlFor="contact-email">Email</InputLabel>
+              <TextField
+                id="contact-email" // Unique ID for accessibility
+                name="email" // Name attribute for autofill
+                value={formData.email}
+                onChange={handleTextChange}
+                required
+                type="email"
+                autoComplete="email" // Autofill suggestion
+                variant="outlined" // Outline variant for Material-UI
+              />
+            </FormControl>
           </Grid>
           <Grid item xs={12}>
-            <TextField
-              fullWidth
-              label="Phone"
-              name="phone" // Name attribute for autofill
-              id="contact-phone" // Unique ID for accessibility
-              value={formData.phone}
-              onChange={handleTextChange}
-              type="tel" // Set input type to telephone
-              autoComplete="tel" // Autofill suggestion
-              variant="outlined" // Outline variant for Material-UI
-            />
+            <FormControl fullWidth variant="outlined">
+              <InputLabel htmlFor="contact-phone">Phone</InputLabel>
+              <TextField
+                id="contact-phone" // Unique ID for accessibility
+                name="phone" // Name attribute for autofill
+                value={formData.phone}
+                onChange={handleTextChange}
+                type="tel" // Set input type to telephone
+                autoComplete="tel" // Autofill suggestion
+                variant="outlined" // Outline variant for Material-UI
+              />
+            </FormControl>
           </Grid>
           <Grid item xs={12}>
             <FormControl fullWidth variant="outlined">
@@ -131,19 +164,20 @@ const Contact: React.FC = () => {
             </FormControl>
           </Grid>
           <Grid item xs={12}>
-            <TextField
-              fullWidth
-              label="Message"
-              name="message" // Name attribute for autofill
-              id="contact-message" // Unique ID for accessibility
-              value={formData.message}
-              onChange={handleTextChange}
-              required
-              multiline
-              rows={4}
-              autoComplete="off" // Optionally disable autofill for this field
-              variant="outlined" // Outline variant for Material-UI
-            />
+            <FormControl fullWidth variant="outlined">
+              <InputLabel htmlFor="contact-message">Message</InputLabel>
+              <TextField
+                id="contact-message" // Unique ID for accessibility
+                name="message" // Name attribute for autofill
+                value={formData.message}
+                onChange={handleTextChange}
+                required
+                multiline
+                rows={4}
+                autoComplete="off" // Optionally disable autofill for this field
+                variant="outlined" // Outline variant for Material-UI
+              />
+            </FormControl>
           </Grid>
           <Grid item xs={12}>
             <Button
@@ -151,8 +185,9 @@ const Contact: React.FC = () => {
               variant="contained"
               color="primary"
               fullWidth
+              disabled={loading} // Disable the button while loading
             >
-              Send
+              {loading ? 'Sending...' : 'Send'}
             </Button>
           </Grid>
         </Grid>
@@ -162,7 +197,7 @@ const Contact: React.FC = () => {
         autoHideDuration={6000}
         onClose={() => setOpenSnackbar(false)}
       >
-        <Alert onClose={() => setOpenSnackbar(false)} severity="success">
+        <Alert onClose={() => setOpenSnackbar(false)} severity={snackbarSeverity}>
           {snackbarMessage}
         </Alert>
       </Snackbar>

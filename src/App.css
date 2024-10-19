@@ -64,3 +64,10 @@ p {
 .MuiSnackbar-root {
   bottom: 50px; /* Position above the bottom */
 }
+
+/* Skill icon styles */
+.skill-icon {
+  font-size: 48px; /* Adjust size */
+  margin-bottom: 8px; /* Spacing below icon */
+  color: #007bff; /* Change icon color */
+}

@@ -5,9 +5,9 @@ import { Container, Box } from '@mui/material';
 import Header from './components/Header';
 import About from './components/About';
 import Projects from './components/Projects';
+import Skills from './components/Skills'; // Import the Skills component
 import Contact from './components/Contact';
-import NotFound from './components/NotFound'; // Import the NotFound component
-import Footer from './components/Footer'; // Import Footer component
+import Footer from './components/Footer';
 
 const App: React.FC = () => {
   return (
@@ -15,28 +15,27 @@ const App: React.FC = () => {
       sx={{
         display: 'flex',
         flexDirection: 'column',
-        minHeight: '100vh', // Ensures the container takes the full height
-        width: '100vw', // Ensures the container takes the full width
+        minHeight: '100vh',
+        width: '100vw',
       }}
     >
       <Header />
       <Container
         maxWidth="lg"
         sx={{
-          flexGrow: 1, // Allows the Container to grow and push the footer down
+          flexGrow: 1,
           mt: 4,
           mb: 4,
         }}
       >
         <Routes>
-          <Route path="/" element={<About />} />  {/* Home route */}
-          <Route path="/about" element={<About />} />
+          <Route path="/" element={<About />} /> {/* Home route */}
           <Route path="/projects" element={<Projects />} />
+          <Route path="/skills" element={<Skills />} /> {/* Skills route */}
           <Route path="/contact" element={<Contact />} />
-          <Route path="*" element={<NotFound />} /> {/* Use NotFound component */}
         </Routes>
       </Container>
-      <Footer /> {/* Include Footer component at the bottom */}
+      <Footer />
     </Box>
   );
 };

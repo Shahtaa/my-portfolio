@@ -6,10 +6,18 @@ const About: React.FC = () => {
   return (
     <Box>
       <Typography variant="h4" gutterBottom>
-        About Me
+        Hi there! 👋
+      </Typography>
+      <Typography variant="h5" gutterBottom>
+        Welcome to My Portfolio! 🎉
+      </Typography>
+      <Typography variant="h5" gutterBottom>
+        About Me 💼
       </Typography>
       <Typography variant="body1">
-        This is the About page content. Describe yourself or your work here.
+        I'm a passionate coder 👨‍💻 dedicated to crafting efficient web applications. 
+        With expertise in Java ☕ and React ⚛️, I thrive on tackling new challenges and 
+        contributing creativity to innovative projects.
       </Typography>
     </Box>
   );
