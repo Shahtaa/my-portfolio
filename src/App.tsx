@@ -5,10 +5,10 @@ import { Container, Box } from '@mui/material';
 import Header from './components/Header';
 import About from './components/About';
 import Projects from './components/Projects';
-import Skills from './components/Skills'; 
+import Skills from './components/Skills';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
-import NotFound from './components/NotFound'; // Import the NotFound component
+import NotFound from './components/NotFound'; // Don't forget to import your NotFound component
 
 const App: React.FC = () => {
   return (
@@ -30,11 +30,11 @@ const App: React.FC = () => {
         }}
       >
         <Routes>
-          <Route path="/" element={<About />} /> {/* Home route */}
+          <Route path="/" element={<About />} />
           <Route path="/projects" element={<Projects />} />
-          <Route path="/skills" element={<Skills />} /> 
+          <Route path="/skills" element={<Skills />} />
           <Route path="/contact" element={<Contact />} />
-          <Route path="*" element={<NotFound />} /> {/* Catch-all for 404 errors */}
+          <Route path="*" element={<NotFound />} /> {/* Fallback for undefined routes */}
         </Routes>
       </Container>
       <Footer />
