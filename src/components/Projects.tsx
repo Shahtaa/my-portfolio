@@ -1,6 +1,6 @@
 // src/components/Projects.tsx
 import React from 'react';
-import { Card, CardContent, CardMedia, Typography, Grid } from '@mui/material';
+import { Card, CardContent, CardMedia, Typography, Grid, Button } from '@mui/material';
 
 // You can replace this with the respective images for each project
 import localImage from '../images/image.png';
@@ -53,26 +53,41 @@ const Projects: React.FC = () => {
       <Grid container spacing={3} justifyContent="center">
         {projectData.map((project, index) => (
           <Grid item xs={12} sm={6} md={4} key={index}>
-            <Card>
+            <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
               <CardMedia
                 component="img"
                 height="140"
                 image={project.imageUrl}
                 alt={project.title}
               />
-              <CardContent>
+              <CardContent sx={{ flexGrow: 1 }}>
                 <Typography variant="h5" component="div">
                   {project.title}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
                   {project.description}
                 </Typography>
-                <Typography variant="body2" color="primary">
-                  <a href={project.demo} target="_blank" rel="noopener noreferrer">Live Demo</a>
-                  {' | '}
-                  <a href={project.link} target="_blank" rel="noopener noreferrer">GitHub</a>
-                </Typography>
               </CardContent>
+              <div style={{ display: 'flex', justifyContent: 'space-around', padding: '16px' }}>
+                <Button 
+                  variant="contained" 
+                  color="primary" 
+                  href={project.demo} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                >
+                  Live Demo
+                </Button>
+                <Button 
+                  variant="outlined" 
+                  color="primary" 
+                  href={project.link} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                >
+                  GitHub
+                </Button>
+              </div>
             </Card>
           </Grid>
         ))}
