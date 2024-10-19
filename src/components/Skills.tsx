@@ -1,6 +1,6 @@
 // src/components/Skills.tsx
 import React from 'react';
-import {Grid, Typography, Box, Paper} from '@mui/material';
+import { Grid, Typography, Box, Paper } from '@mui/material';
 import typescriptLogo from '../images/ts-logo-128.png'; // Import the TypeScript logo
 
 // Group skills by category with original colors and links
@@ -24,36 +24,37 @@ const skillsData = {
             color: '#F7DF1E',
             link: 'https://developer.mozilla.org/en-US/docs/Web/JavaScript'
         }, // JavaScript color
-        {name: 'React', icon: 'fab fa-react', color: '#61DAFB', link: 'https://reactjs.org/'}, // React color
-        {name: 'TypeScript', icon: '', color: '#007ACC', link: 'https://www.typescriptlang.org/'}, // TypeScript color and link
+        { name: 'React', icon: 'fab fa-react', color: '#61DAFB', link: 'https://reactjs.org/' }, // React color
+        { name: 'Angular', icon: 'fab fa-angular', color: '#DD0031', link: 'https://angular.io/' }, // Angular color
+        { name: 'TypeScript', icon: '', color: '#007ACC', link: 'https://www.typescriptlang.org/' }, // TypeScript color and link
     ],
     Backend: [
-        {name: 'Node.js', icon: 'fab fa-node', color: '#8CC84B', link: 'https://nodejs.org/'}, // Node.js color
-        {name: 'Java Spring', icon: 'fab fa-java', color: '#007396', link: 'https://spring.io/'}, // Java Spring color
-        {name: 'MongoDB', icon: 'fas fa-database', color: '#4DB33D', link: 'https://www.mongodb.com/'}, // MongoDB color
+        { name: 'Node.js', icon: 'fab fa-node', color: '#8CC84B', link: 'https://nodejs.org/' }, // Node.js color
+        { name: 'Java Spring', icon: 'fab fa-java', color: '#007396', link: 'https://spring.io/' }, // Java Spring color
+        { name: 'MongoDB', icon: 'fas fa-database', color: '#4DB33D', link: 'https://www.mongodb.com/' }, // MongoDB color
     ],
     Cloud: [
-        {name: 'AWS', icon: 'fab fa-aws', color: '#FF9900', link: 'https://aws.amazon.com/'}, // AWS color
-        {name: 'Azure', icon: 'fab fa-microsoft', color: '#0078D4', link: 'https://azure.microsoft.com/'}, // Azure color
-        {name: 'Cloud', icon: 'fas fa-cloud', color: '#B2BEC3', link: 'https://cloud.google.com/'}, // Cloud color
+        { name: 'AWS', icon: 'fab fa-aws', color: '#FF9900', link: 'https://aws.amazon.com/' }, // AWS color
+        { name: 'Azure', icon: 'fab fa-microsoft', color: '#0078D4', link: 'https://azure.microsoft.com/' }, // Azure color
+        { name: 'Cloud', icon: 'fas fa-cloud', color: '#B2BEC3', link: 'https://cloud.google.com/' }, // Cloud color
     ],
 };
 
 const Skills: React.FC = () => {
     return (
-        <Box sx={{padding: '40px 20px', bgcolor: '#f9f9f9', borderRadius: '8px'}}>
-            <Typography variant="h4" gutterBottom align="center" sx={{fontWeight: 'bold', color: '#333'}}>
+        <Box sx={{ padding: '40px 20px', bgcolor: '#f9f9f9', borderRadius: '8px' }}>
+            <Typography variant="h4" gutterBottom align="center" sx={{ fontWeight: 'bold', color: '#333' }}>
                 Skills
             </Typography>
             {Object.entries(skillsData).map(([category, skills]) => (
-                <Box key={category} sx={{marginBottom: '40px'}}>
-                    <Typography variant="h5" gutterBottom align="center" sx={{fontWeight: 'bold', color: '#555'}}>
+                <Box key={category} sx={{ marginBottom: '40px' }}>
+                    <Typography variant="h5" gutterBottom align="center" sx={{ fontWeight: 'bold', color: '#555' }}>
                         {category}
                     </Typography>
                     <Grid container spacing={4} justifyContent="center">
                         {skills.map((skill, index) => (
                             <Grid item xs={12} sm={6} md={4} key={index}
-                                  sx={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+                                  sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                                 <Paper
                                     elevation={3}
                                     sx={{
@@ -73,16 +74,16 @@ const Skills: React.FC = () => {
                                     }}
                                 >
                                     <a href={skill.link} target="_blank" rel="noopener noreferrer"
-                                       style={{textDecoration: 'none'}}>
+                                       style={{ textDecoration: 'none' }}>
                                         {skill.name === 'TypeScript' ? (
                                             <img src={typescriptLogo} alt="TypeScript logo"
-                                                 style={{width: '60%', height: '60%'}}/>
+                                                 style={{ width: '60%', height: '60%' }} />
                                         ) : (
-                                            <i className={skill.icon} style={{fontSize: '48px', color: '#fff'}}></i>
+                                            <i className={skill.icon} style={{ fontSize: '48px', color: '#fff' }}></i>
                                         )}
                                     </a>
                                 </Paper>
-                                <Typography variant="h6" mt={1} sx={{color: '#333', textAlign: 'center'}}>
+                                <Typography variant="h6" mt={1} sx={{ color: '#333', textAlign: 'center' }}>
                                     {skill.name}
                                 </Typography>
                             </Grid>
