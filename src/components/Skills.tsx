@@ -1,6 +1,7 @@
 // src/components/Skills.tsx
 import React from 'react';
 import { Grid, Typography, Box, Paper } from '@mui/material';
+import typescriptLogo from '../images/ts-logo-128.png'; // Import the TypeScript logo
 
 // Group skills by category with original colors and links
 const skillsData = {
@@ -9,6 +10,7 @@ const skillsData = {
     { name: 'CSS', icon: 'fab fa-css3-alt', color: '#1572B6', link: 'https://developer.mozilla.org/en-US/docs/Web/CSS' }, // CSS color
     { name: 'JavaScript', icon: 'fab fa-js', color: '#F7DF1E', link: 'https://developer.mozilla.org/en-US/docs/Web/JavaScript' }, // JavaScript color
     { name: 'React', icon: 'fab fa-react', color: '#61DAFB', link: 'https://reactjs.org/' }, // React color
+    { name: 'TypeScript', icon: '', color: '#007ACC', link: 'https://www.typescriptlang.org/' }, // TypeScript color and link
   ],
   Backend: [
     { name: 'Node.js', icon: 'fab fa-node', color: '#8CC84B', link: 'https://nodejs.org/' }, // Node.js color
@@ -35,7 +37,7 @@ const Skills: React.FC = () => {
           </Typography>
           <Grid container spacing={4} justifyContent="center">
             {skills.map((skill, index) => (
-              <Grid item xs={12} sm={6} md={3} key={index} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+              <Grid item xs={12} sm={6} md={4} key={index} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                 <Paper
                   elevation={3}
                   sx={{
@@ -45,7 +47,7 @@ const Skills: React.FC = () => {
                     width: '100px', // Fixed width for circular card
                     height: '100px', // Fixed height for circular card
                     borderRadius: '50%', // Make the card circular
-                    bgcolor: skill.color, // Use the original skill color
+                    bgcolor: skill.color || '#fff', // Use the original skill color or default to white
                     textAlign: 'center',
                     transition: 'transform 0.2s, box-shadow 0.2s',
                     '&:hover': {
@@ -55,10 +57,11 @@ const Skills: React.FC = () => {
                   }}
                 >
                   <a href={skill.link} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none' }}>
-                    <i 
-                      className={skill.icon} 
-                      style={{ fontSize: '48px', color: '#fff' }} // Set icon color to white for contrast
-                    ></i>
+                    {skill.name === 'TypeScript' ? (
+                      <img src={typescriptLogo} alt="TypeScript logo" style={{ width: '60%', height: '60%' }} />
+                    ) : (
+                      <i className={skill.icon} style={{ fontSize: '48px', color: '#fff' }}></i>
+                    )}
                   </a>
                 </Paper>
                 <Typography variant="h6" mt={1} sx={{ color: '#333', textAlign: 'center' }}>
